@@ -12,7 +12,7 @@ This is a Node.js backend API built with Express, TypeScript, and Bun.
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/djerez0/technical-test-backend.git
 cd backend
 ```
 
@@ -74,7 +74,3 @@ backend/
 2. Make your changes
 3. Run tests and ensure they pass
 4. Submit a pull request
-
-## License
-
-[Add your license here]
