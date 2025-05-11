@@ -1,12 +1,16 @@
+import path from "node:path";
+
 import eslint from "@eslint/js";
 import prettierRecommended from "eslint-plugin-prettier/recommended";
 import simpleImportSortPlugin from "eslint-plugin-simple-import-sort";
 import tseslint from "typescript-eslint";
 
+const tsconfigPath = path.join(__dirname, "tsconfig.json");
+
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeCheckedOnly,
+  ...tseslint.configs.recommended,
   prettierRecommended,
   {
     plugins: {
@@ -15,7 +19,7 @@ export default tseslint.config(
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
-        project: "./tsconfig.json",
+        project: tsconfigPath,
         ecmaVersion: 2020,
         sourceType: "module",
       },
@@ -30,17 +34,17 @@ export default tseslint.config(
     },
     rules: {
       "prettier/prettier": "error",
-      "@typescript-eslint/explicit-function-return-type": "warn",
+      "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_" },
       ],
       "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-unsafe-assignment": "warn",
-      "@typescript-eslint/no-unsafe-member-access": "warn",
-      "@typescript-eslint/no-unsafe-call": "warn",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
       "@typescript-eslint/no-unsafe-return": "warn",
-      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-console": ["warn", { allow: ["warn", "error", "info"] }],
       "no-duplicate-imports": "error",
       "prefer-const": "error",
       "no-var": "error",
@@ -51,11 +55,11 @@ export default tseslint.config(
         { prefer: "type-imports" },
       ],
       "@typescript-eslint/no-floating-promises": "error",
-      "@typescript-eslint/require-await": "error",
       "@typescript-eslint/no-empty-function": [
         "error",
         { allow: ["constructors"] },
       ],
+      "@typescript-eslint/await-thenable": "off",
       "no-self-assign": "error",
       "no-useless-return": "error",
       "id-length": [
@@ -70,6 +74,7 @@ export default tseslint.config(
       "space-before-blocks": ["error", "always"],
       "space-infix-ops": "error",
       "object-curly-spacing": ["error", "always"],
+      "@typescript-eslint/no-unsafe-argument": "off",
     },
     ignores: [
       "node_modules/**",

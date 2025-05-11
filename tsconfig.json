@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "CommonJS",
     "lib": ["ES2022"],
     "sourceMap": true,
     "outDir": "./dist",
@@ -17,6 +16,6 @@
     "resolveJsonModule": true,
     "allowImportingTsExtensions": false
   },
-  "include": ["src/**/*", "eslint.config.ts", "commitlint.config.ts"],
+  "include": ["src/**/*", "eslint.config.ts", "commitlint.config.ts", "jest.config.ts", "__tests__/**/*"],
   "exclude": ["node_modules", "dist"]
 }
