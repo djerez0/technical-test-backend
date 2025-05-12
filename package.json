@@ -24,6 +24,7 @@
     "@eslint/js": "^9.26.0",
     "@types/bcrypt": "^5.0.2",
     "@types/bun": "latest",
+    "@types/cors": "^2.8.18",
     "@types/express": "^5.0.1",
     "@types/hapi__boom": "^9.0.1",
     "@types/jest": "^29.5.14",
@@ -57,6 +58,7 @@
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
