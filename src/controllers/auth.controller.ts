@@ -1,6 +1,7 @@
 import boom from "@hapi/boom";
 import bcrypt from "bcrypt";
 import type { Request, Response } from "express";
+import { v4 } from "uuid";
 
 import { db, type TokenBlackList, type User } from "../db/db";
 import { generateToken } from "../utils/jwt";
@@ -18,7 +19,7 @@ export const signUp = async (req: Request, res: Response) => {
   const passwordHash = await bcrypt.hash(password, 10);
 
   const newUser: User = {
-    id: users.length + 1,
+    id: v4(),
     username,
     password: passwordHash,
   };
@@ -58,7 +59,7 @@ export const logOut = async (req: Request, res: Response) => {
   const access_token = (req as unknown as { token: string }).token;
 
   const newTokenRevoked: TokenBlackList = {
-    id: tokenBlackList.length + 1,
+    id: v4(),
     access_token,
   };
 

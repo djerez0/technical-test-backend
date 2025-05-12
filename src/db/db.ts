@@ -3,20 +3,20 @@ import { JSONFile } from "lowdb/node";
 import { join } from "path";
 
 export type User = {
-  id: number;
+  id: string;
   username: string;
   password: string;
 };
 
 export type Task = {
-  id: number;
+  id: string;
   title: string;
   description?: string;
-  createdBy: number;
+  createdBy: string;
 };
 
 export type TokenBlackList = {
-  id: number;
+  id: string;
   access_token: string;
 };
 

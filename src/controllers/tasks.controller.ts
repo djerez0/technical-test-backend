@@ -1,5 +1,6 @@
 import boom from "@hapi/boom";
 import type { Request, Response } from "express";
+import { v4 } from "uuid";
 
 import { db, type Task, type User } from "../db/db";
 
@@ -10,7 +11,7 @@ export const addTask = async (req: Request, res: Response) => {
   const tasks = db.data.tasks;
 
   const newTask: Task = {
-    id: tasks.length + 1,
+    id: v4(),
     createdBy: (req.user as User).id,
     description,
     title,
@@ -43,13 +44,13 @@ export const deleteTask = async (req: Request, res: Response) => {
   const tasks = db.data.tasks;
   const { id } = req.params as { id: string };
 
-  const exist = tasks.find((task) => task.id === Number(id));
+  const exist = tasks.find((task) => task.id === id);
 
   if (!exist) {
     throw boom.notFound("TASK_NOT_FOUND");
   }
 
-  const newTasks = tasks.filter((task) => task.id !== Number(id));
+  const newTasks = tasks.filter((task) => task.id !== id);
   db.data.tasks = newTasks;
 
   await db.write();
