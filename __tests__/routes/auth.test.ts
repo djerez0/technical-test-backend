@@ -4,12 +4,11 @@ import express from "express";
 import passport from "passport";
 import request from "supertest";
 
-import { logOut, signIn, signUp } from "../../src/controllers/auth.controller"; // Ajusta el path si es necesario
-import { db, initDB } from "../../src/db/db"; // Ajusta el path si es necesario
+import { logOut, signIn, signUp } from "../../src/controllers/auth.controller";
+import { db, initDB } from "../../src/db/db";
 import { checkBlackList } from "../../src/middlewares/check-blacklist.middleware";
 import { errorHandler } from "../../src/middlewares/error.handler";
 
-// Configuración de la app Express para las pruebas
 const app = express();
 app.use(express.json());
 app.use(passport.initialize());
@@ -22,7 +21,6 @@ app.use(errorHandler);
 
 describe("Auth API", () => {
   beforeEach(() => {
-    // Asegurarse de limpiar la base de datos en memoria antes de cada prueba
     db.data.users = [];
     db.data.tokenBlackList = [];
   });
@@ -44,9 +42,8 @@ describe("Auth API", () => {
       const existingUser = { username: "testUser", password: "password123" };
       await initDB();
 
-      // Crear un usuario inicial
       db.data.users.push({
-        id: 1,
+        id: "f5a4c322-219e-4a48-9e39-2485f9b05551",
         username: existingUser.username,
         password: "hashedPassword",
       });
@@ -60,10 +57,13 @@ describe("Auth API", () => {
 
   describe("POST /signin", () => {
     it("should return 201 and access token when sign in is successful", async () => {
-      const user = { id: 1, username: "testUser", password: "password123" };
+      const user = {
+        id: "f5a4c322-219e-4a48-9e39-2485f9b05551",
+        username: "testUser",
+        password: "password123",
+      };
       await initDB();
 
-      // Simula un inicio de sesión
       db.data.users.push(user);
 
       const response = await request(app).post("/signin").send({
@@ -79,7 +79,7 @@ describe("Auth API", () => {
 
   describe("POST /logout", () => {
     it("should return 200 and mark the token as revoked", async () => {
-      const token = "fakeToken"; // Simula un token de acceso
+      const token = "fakeToken";
       await initDB();
 
       const response = await request(app)
@@ -89,7 +89,6 @@ describe("Auth API", () => {
       expect(response.status).toBe(200);
       expect(response.body.message).toBe("LOGOUT_SUCCESSFULLY");
 
-      // Verificar que el token se haya añadido a la lista de tokens revocados
       expect(db.data.tokenBlackList).toHaveLength(1);
       expect(db.data.tokenBlackList[0].access_token).toBe(token);
     });

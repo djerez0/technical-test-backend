@@ -19,7 +19,7 @@ import { deleteTaskSchema } from "../../src/schemas/delete-task.schema";
 import { JWT_SECRET_KEY } from "../../src/utils/jwt";
 
 const TEST_USER = {
-  id: 1,
+  id: "9b2c6d60-91a5-4d95-8d7e-24a5ed6e9b91",
   username: "testUser2",
   password: "$2b$10$ib3eXz6x4Qpq3nC.JKXIFu2eXmzsIvGVbe667VjGeGPpAcOxmKYde",
 };
@@ -83,7 +83,7 @@ describe("Tasks API", () => {
     });
 
     it("should fail if schema is not valid", async () => {
-      const badTask = { title: "" }; // falta descripción
+      const badTask = { title: "" };
 
       const response = await request(app)
         .post("/")
@@ -98,7 +98,7 @@ describe("Tasks API", () => {
   describe("GET /", () => {
     it("should return all tasks of the user", async () => {
       db.data.tasks.push({
-        id: 1,
+        id: "76f1fbd2-e09e-4a3b-84b7-7dd9fdee6cb5",
         title: "Existing Task",
         description: "Previously added",
         createdBy: TEST_USER.id,
@@ -119,7 +119,7 @@ describe("Tasks API", () => {
   describe("DELETE /:id", () => {
     it("should delete a task successfully", async () => {
       db.data.tasks.push({
-        id: 1,
+        id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
         title: "Task to delete",
         description: "To be removed",
         createdBy: TEST_USER.id,
@@ -128,7 +128,7 @@ describe("Tasks API", () => {
       await db.write();
 
       const response = await request(app)
-        .delete("/1")
+        .delete("/3fa85f64-5717-4562-b3fc-2c963f66afa6")
         .set("Authorization", `Bearer ${token}`);
 
       expect(response.status).toBe(200);
